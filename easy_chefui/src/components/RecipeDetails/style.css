@@ -1,0 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Courgette&family=Oswald:wght@300&display=swap');
+.cursive{
+    font-family: 'Courgette', cursive;
+    font-size: 50px;
+    overflow: hidden;
+  }

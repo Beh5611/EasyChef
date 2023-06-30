@@ -1,0 +1,132 @@
+/* Include the padding and border in an element's total width and height */
+@import url('https://fonts.googleapis.com/css2?family=Courgette&family=Oswald:wght@300&display=swap');
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    padding:0;
+    margin: 0;
+}
+
+  .container2{
+    border: 2px solid gray;
+    border-radius: 3px;
+    padding-bottom: 0;
+    margin-right:100px;
+    padding: 0;
+  }
+  .innerList{
+    background-color: #eee;
+  }
+  .innerUL{
+    margin-left: 2%;
+  }
+  .search{
+    width: 30%;
+    height: 35px;
+    border-radius: 15px 0 0 15px;
+    padding-right: 0;
+    margin-right: 0;
+    
+    border: 1px solid grey;
+  }
+  .searchButton{
+    height: 35px;
+    width: 70px;
+    border-radius: 0 15px 15px 0;
+    padding-left: 0;
+    margin-left: 0;
+    border: 1px solid #FFD472;
+    background-color: white;
+    color: grey;
+  }
+  .searchButton:hover{
+    border: 2px solid #FFB100;
+    color: black;
+  
+  }
+
+  
+  .first{
+    text-align: center;
+    width: 20%;
+    border: 2px solid grey;
+    border-bottom: 0px;
+    border-radius: 3px 3px 0 0;
+    background-color: #eee;
+  }
+
+  .IngredientList{
+    padding-top: 5%;
+    padding-bottom: 5%;
+    display: grid;
+    grid-template-columns: 1fr 3.5fr;
+    height: min-content;
+    padding-bottom: 1%;
+  }
+  .c2{
+    padding: 0;
+  }
+  .c1{
+    justify-content: right;
+    align-items: right;
+  }
+  .c1 img{
+    float: right;
+    height: auto;
+    width: 100%;
+  }
+  .recimg{
+    
+    width: 100%;
+    height: 100%;
+    
+    padding-top: 34px;
+    
+  }
+  li{
+    list-style-type: none;
+  }
+  .plus{
+    display: flex;
+    align-items: left;
+    
+  }
+.m-1{
+    padding-left: 0.4%;
+    padding-right: 1%;
+    color: gray;
+    border-right: 2px solid #ddd;
+}
+.min{
+    color: gray;
+    border-right: 0px solid #ddd;
+}
+.min:hover{
+    color: red;
+}
+.trash{
+    border-right: 0;
+}
+.trash:hover{
+    color: black;
+}
+.hoverStuff{
+    background:#eee;
+}
+.innerList .hoverStuff:nth-child(odd) {
+    background: #f9f9f9;
+  }
+.hoverStuff:hover{
+    background-color: #ddd;
+}
+.innerList .hoverStuff:nth-child(odd):hover {
+    background-color: #ddd;
+    
+  }
+
+
+
+
+
+
+
+

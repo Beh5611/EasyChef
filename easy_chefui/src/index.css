@@ -1,0 +1,46 @@
+body {
+  margin: 0;
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.transparent-btn {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.on {
+  color: #000;
+}
+
+.off {
+  color: #ccc;
+}
+
+.liked {
+  color: #df2a2a;
+}
+
+.unliked {
+  color: #ccc;
+}
+
+.favorited {
+  color: #000000;
+}
+
+.unfavorited {
+  color: #ccc;
+}
+
+.form-error {
+  color: red;
+  font-size: 12px;
+}

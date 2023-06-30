@@ -1,0 +1,1513 @@
+openapi: 3.0.2
+info:
+  title: ''
+  version: ''
+servers: [
+    {
+      url: 'http://127.0.0.1:8000',
+      description: 'default django server for API'
+    }
+  ]
+paths:
+  /accounts/{id}/update/:
+    put:
+      operationId: updateUser
+      description: 'Updates user with specified `id`.'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: 'id of the user.'
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Update'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Update'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Update'
+          description: 'Updated information of user.'
+      tags:
+      - accounts
+    patch:
+      operationId: partialUpdateUser
+      description: 'Partially updates user with specified `id`.'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: 'id of the user.'
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Update'
+
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Update'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Update'
+          description: 'Updated information of user.'
+      tags:
+      - accounts
+  /accounts/{id}/user/:
+    get:
+      operationId: retrieveUser
+      description: 'Get the user information with specified `id`.'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: 'id of the user.'
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: 'Information of user.'
+      tags:
+      - accounts
+  /recipes/all/:
+    get:
+      operationId: listRecipes
+      description: 'List all the recipes.'
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?page=4
+                  previous:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?page=2
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Recipe'
+          description: 'Paginated response of all the recipes.'
+      tags:
+      - recipes
+  /recipes/{recipe_id}/ingredients/:
+    get:
+      operationId: listIngredients
+      description: 'List all the ingredients of a recipe with specified `recipe_id`.'
+      parameters:
+      - name: recipe_id
+        in: path
+        required: true
+        description: 'id of the recipe.'
+        schema:
+          type: integer
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?page=4
+                  previous:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?page=2
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Ingredient'
+          description: 'Paginated response of all the ingredients of a recipe.'
+      tags:
+      - recipes
+  /recipes/{recipe_id}/diets/:
+    get:
+      operationId: listRecipeDiets
+      description: 'List all the diets of a recipe with specified `recipe_id`.'
+      parameters:
+      - name: recipe_id
+        in: path
+        required: true
+        description: 'id of the recipe.'
+        schema:
+          type: integer
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?page=4
+                  previous:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?page=2
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Diet'
+          description: 'Paginated response of all the diets of a recipe.'
+      tags:
+      - recipes
+  /recipes/{recipe_id}/:
+    get:
+      operationId: retrieveRecipe
+      description: 'retrieve recipe specified with `recipe_id`.'
+      parameters:
+      - name: recipe_id
+        in: path
+        required: true
+        description: 'id of the recipe.'
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Recipe'
+          description: 'Information of recipe.'
+      tags:
+      - recipes
+  /posts/{id}/:
+    get:
+      operationId: retrievePost
+      description: 'Get post with specified `id`.'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: 'id of the post.'
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+          description: 'Information of post.'
+      tags:
+      - posts
+  /posts/all/:
+    get:
+      operationId: listPosts
+      description: 'List all posts.'
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?page=4
+                  previous:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?page=2
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Post'
+          description: 'Paginated response of all posts.'
+      tags:
+      - posts
+  /posts/{id}/edit/:
+    put:
+      operationId: updatePost
+      description: 'Update the post with specified `id`.'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: 'id of the post.'
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Post'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Post'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+          description: 'Updated information of post.'
+      tags:
+      - posts
+    patch:
+      operationId: partialUpdatePost
+      description: 'Partially update the post with specified `id`.'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: 'id of the post.'
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Post'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Post'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+          description: 'Partially updated information of post.'
+      tags:
+      - posts
+  /posts/{user}/favorites/:
+    get:
+      operationId: listUserFavorites
+      description: 'List all the favorite posts of a specified `user`.'
+      parameters:
+      - name: user
+        in: path
+        required: true
+        description: 'id of user.'
+        schema:
+          type: integer
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?page=4
+                  previous:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?page=2
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Favorite'
+          description: 'Paginated response of all favorite posts of user.'
+      tags:
+      - posts
+  /posts/{post}/like/all/:
+    get:
+      operationId: listPostLikes
+      description: 'List all the likes of a spacified `post`.'
+      parameters:
+      - name: post
+        in: path
+        required: true
+        description: 'id of the post.'
+        schema:
+          type: integer
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?page=4
+                  previous:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?page=2
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Like'
+          description: 'Paginated response of all likes on post.'
+      tags:
+      - posts
+  /posts/{user}/likes/:
+    get:
+      operationId: listUserLikes
+      description: 'List all the likes of a specfied `user`.'
+      parameters:
+      - name: user
+        in: path
+        required: true
+        description: 'id of user.'
+        schema:
+          type: integer
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?page=4
+                  previous:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?page=2
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Like'
+          description: 'Paginated response of all likes of a user.'
+      tags:
+      - posts
+  /posts/comment/{id}/view/:
+    get:
+      operationId: retrieveComment
+      description: 'Get a comment specified with `id`.'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: 'id of comment.'
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+          description: 'Information of comment.'
+      tags:
+      - posts
+  /posts/{post}/comment/view/all/:
+    get:
+      operationId: listPostComments
+      description: 'List all the comments a specified `post`.'
+      parameters:
+      - name: post
+        in: path
+        required: true
+        description: 'id of post.'
+        schema:
+          type: integer
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?page=4
+                  previous:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?page=2
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Comment'
+          description: 'Paginated response of all comments on a post.'
+      tags:
+      - posts
+  /posts/{user}/comments/:
+    get:
+      operationId: listUserComments
+      description: 'List all the comments of a specified `user`.'
+      parameters:
+      - name: user
+        in: path
+        required: true
+        description: 'id of user.'
+        schema:
+          type: integer
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?page=4
+                  previous:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?page=2
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Comment'
+          description: 'Paginated response of all comemnts of a user.'
+      tags:
+      - posts
+  /posts/{post}/rating/view/:
+    get:
+      operationId: retrieveRating
+      description: 'Retrieve rating a specified `post` made by logged in user.'
+      parameters:
+      - name: post
+        in: path
+        required: true
+        description: 'id of post.'
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rating'
+          description: 'Information of rating.'
+      tags:
+      - posts
+  /posts/{post}/rating/view/all/:
+    get:
+      operationId: listRatings
+      description: 'List all raing '
+      parameters:
+      - name: post
+        in: path
+        required: true
+        description: 'id of post.'
+        schema:
+          type: integer
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 123
+                  next:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?page=4
+                  previous:
+                    type: string
+                    nullable: true
+                    format: uri
+                    example: http://api.example.org/accounts/?page=2
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Rating'
+          description: 'Paginated response of all ratings on a post.'
+      tags:
+      - posts
+  /accounts/signup/:
+    post:
+      operationId: createUser
+      description: 'Create a user account.'
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: 'Information of newly created user.'
+      tags:
+      - accounts
+  /accounts/api/token/:
+    post:
+      operationId: createTokenObtainPair
+      description: 'Takes a set of user credentials and returns an access and refresh
+        JSON web
+
+        token pair to prove the authentication of those credentials.'
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenObtainPair'
+          description: 'Generated auth tokens.'
+      tags:
+      - accounts
+  /accounts/login/:
+    post:
+      operationId: createLogin
+      description: 'Login as a user.'
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          application/x-www-form-urlencoded:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema: {}
+          description: 'Login result.'
+      tags:
+      - accounts
+  /accounts/logout/:
+    post:
+      operationId: createLogOut
+      description: 'Logout as a user.'
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          application/x-www-form-urlencoded:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema: {}
+          description: 'Logout result.'
+      tags:
+      - accounts
+  /recipes/create/:
+    post:
+      operationId: createRecipe
+      description: 'Create a recipe.'
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Recipe'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Recipe'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Recipe'
+          description: 'Information of newly created recipe.'
+      tags:
+      - recipes
+  /recipes/{recipe_id}/add-ingredient/:
+    post:
+      operationId: createIngredient
+      description: 'Create an ingredient and add to recipe specified with `recipe_id`.'
+      parameters:
+      - name: recipe_id
+        in: path
+        required: true
+        description: 'id of recipe.'
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Ingredient'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Ingredient'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ingredient'
+          description: 'Information of newly added ingredient.'
+      tags:
+      - recipes
+  /recipes/{recipe_id}/add-diet/:
+    post:
+      operationId: createDiet
+      description: 'Create a diet and add to recipe specfied with `recipe_id`.'
+      parameters:
+      - name: recipe_id
+        in: path
+        required: true
+        description: 'id of recipe.'
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Diet'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Diet'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Diet'
+          description: 'Information of newly added diet.'
+      tags:
+      - recipes
+  /recipes/{recipe_id}/update/:
+    post:
+      operationId: updateRecipe
+      description: 'Update a recipe with specfied `recipe_id`.'
+      parameters:
+      - name: recipe_id
+        in: path
+        required: true
+        description: 'id of recipe.'
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Recipe'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Recipe'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Recipe'
+          description: 'Informationof newly updated recipe.'
+      tags:
+      - recipes
+  /recipes/{id}/update-ingredient/:
+    post:
+      operationId: updateIngredient
+      description: 'Update an ingredient with specified `id`.'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: 'id of ingredient.'
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Ingredient'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Ingredient'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Ingredient'
+          description: 'Information of newly updated ingredient.'
+      tags:
+      - recipes
+  /recipes/{recipe_id}/delete/:
+    post:
+      operationId: deleteRecipe
+      description: 'Delete a recipe specified with `recipe_id`.'
+      parameters:
+      - name: recipe_id
+        in: path
+        required: true
+        description: 'id of recipe.'
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema: {}
+          description: 'Success message.'
+      tags:
+      - recipes
+  /recipes/{id}/delete-ingredient/:
+    post:
+      operationId: deleteIngredient
+      description: 'delete an ingredient specified with `id`.'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: 'id of ingedient. '
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema: {}
+          description: 'Success message.'
+      tags:
+      - recipes
+  /posts/create/:
+    post:
+      operationId: createPost
+      description: 'Create a post.'
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Post'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Post'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+          description: 'Information of newly created post.'
+      tags:
+      - posts
+  /posts/{post}/favorite/:
+    post:
+      operationId: createFavorite
+      description: 'Favorite a post.'
+      parameters:
+      - name: post
+        in: path
+        required: true
+        description: 'id of post.'
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Favorite'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Favorite'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Favorite'
+          description: 'Information of new favorite.'
+      tags:
+      - posts
+  /posts/{post}/like/:
+    post:
+      operationId: createLike
+      description: 'Like a post.'
+      parameters:
+      - name: post
+        in: path
+        required: true
+        description: 'id of post.'
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Like'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Like'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Like'
+          description: 'Information of new like.'
+      tags:
+      - posts
+  /posts/{post}/comment/:
+    post:
+      operationId: createComment
+      description: 'Create a comment on a specfied `post`.'
+      parameters:
+      - name: post
+        in: path
+        required: true
+        description: 'id of post.'
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Comment'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Comment'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+          description: 'Information of new comment.'
+      tags:
+      - posts
+  /posts/{post}/rate/:
+    post:
+      operationId: createRating
+      description: 'Ratea a `post`.'
+      parameters:
+      - name: post
+        in: path
+        required: true
+        description: 'id of post.'
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Rating'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Rating'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rating'
+          description: 'Information of new rating.'
+      tags:
+      - posts
+  /posts/comment/{id}/edit/:
+    put:
+      operationId: updateComment
+      description: 'Edit comment with `id`.'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: 'id of comment.'
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Comment'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Comment'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+          description: 'Updated information of comment.'
+      tags:
+      - posts
+    patch:
+      operationId: partialUpdateComment
+      description: 'Partially edit comment with `id`.'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: 'id of comment.'
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Comment'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Comment'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+          description: 'Partially updated information of comment.'
+      tags:
+      - posts
+  /posts/rating/{id}/edit/:
+    put:
+      operationId: updateRating
+      description: 'Update rating with `id`.'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: 'id of rating.'
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Rating'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Rating'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rating'
+          description: 'Updated information of rating.'
+      tags:
+      - posts
+    patch:
+      operationId: partialUpdateRating
+      description: 'Partially pdate rating with `id`.'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: 'id of rating.'
+        schema:
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Rating'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Rating'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rating'
+          description: 'Partially updated information of rating.'
+      tags:
+      - posts
+  /accounts/{id}/delete/:
+    delete:
+      operationId: deleteUser
+      description: 'Delete user account with `id`.'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: 'id of user.'
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: 'success message.'
+      tags:
+      - accounts
+  /posts/{id}/delete/:
+    delete:
+      operationId: deletePost
+      description: 'delete post with `id`.'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: 'id of post.'
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: 'success message.'
+      tags:
+      - posts
+  /posts/{post}/unfavorite/:
+    delete:
+      operationId: deleteFavorite
+      description: 'Unfavorite a post with `id`.'
+      parameters:
+      - name: post
+        in: path
+        required: true
+        description: 'id of post.'
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: 'success message.'
+      tags:
+      - posts
+  /posts/{post}/unlike/:
+    delete:
+      operationId: deleteLike
+      description: 'Unlike a post with `id`.'
+      parameters:
+      - name: post
+        in: path
+        required: true
+        description: 'id of post.'
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: 'success message.'
+      tags:
+      - posts
+  /posts/{post}/comment/{id}/delete/:
+    delete:
+      operationId: deleteComment
+      description: 'Delete a comment `id` on `post`.'
+      parameters:
+      - name: post
+        in: path
+        required: true
+        description: 'id of post.'
+        schema:
+          type: integer
+      - name: id
+        in: path
+        required: true
+        description: 'id of comment.'
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: 'success message.'
+      tags:
+      - posts
+  /posts/rating/{id}/delete/:
+    delete:
+      operationId: deleteRating
+      description: 'Deleta rating wwithg `id`.'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: 'id of rating.'
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: 'success message.'
+      tags:
+      - posts
+components:
+  schemas:
+    Update:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+\z
+          maxLength: 150
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        password:
+          type: string
+          maxLength: 128
+        phone_number:
+          type: string
+          maxLength: 20
+        avatar:
+          type: string
+          format: binary
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        username:
+          type: string
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+\z
+          maxLength: 150
+        first_name:
+          type: string
+          maxLength: 150
+        last_name:
+          type: string
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        password:
+          type: string
+          writeOnly: true
+        phone_number:
+          type: string
+          maxLength: 20
+        avatar:
+          type: string
+          format: binary
+        password2:
+          type: string
+          writeOnly: true
+      required:
+      - username
+      - first_name
+      - last_name
+      - email
+      - password
+      - phone_number
+      - password2
+    Recipe:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 50
+        owner:
+          type: integer
+        serving:
+          type: integer
+        step_list:
+          type: string
+        prep_time:
+          type: string
+          maxLength: 50
+        cook_time:
+          type: string
+          maxLength: 50
+      required:
+      - name
+      - owner
+      - serving
+      - step_list
+      - prep_time
+      - cook_time
+    Ingredient:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 50
+        recipe_ID:
+          type: integer
+        amount:
+          type: integer
+        amount_type:
+          enum:
+          - Tablespoon
+          - Teaspoon
+          - Ounces
+          - Pounds
+          - Milliliter
+          - Milligram
+          - Gram
+          - Cup
+          type: string
+      required:
+      - name
+      - recipe_ID
+      - amount
+    Diet:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 50
+        recipe_ID:
+          type: integer
+      required:
+      - name
+      - recipe_ID
+    Post:
+      type: object
+      properties:
+        title:
+          type: string
+          maxLength: 50
+        recipe:
+          type: integer
+        description:
+          type: string
+          maxLength: 250
+        date_created:
+          type: string
+          format: date-time
+          readOnly: true
+        date_modified:
+          type: string
+          format: date-time
+          readOnly: true
+        owner:
+          type: integer
+      required:
+      - title
+      - recipe
+      - description
+      - owner
+    Favorite:
+      type: object
+      properties:
+        user:
+          type: integer
+        post:
+          type: integer
+      required:
+      - user
+      - post
+    Like:
+      type: object
+      properties:
+        user:
+          type: integer
+        post:
+          type: integer
+      required:
+      - user
+      - post
+    Comment:
+      type: object
+      properties:
+        content:
+          type: string
+          maxLength: 500
+        date:
+          type: string
+          format: date-time
+          readOnly: true
+        photo:
+          type: string
+          format: binary
+        user:
+          type: integer
+        post:
+          type: integer
+      required:
+      - content
+      - user
+      - post
+    Rating:
+      type: object
+      properties:
+        score:
+          type: integer
+          maximum: 5
+        date:
+          type: string
+          format: date-time
+          readOnly: true
+        user:
+          type: integer
+        post:
+          type: integer
+      required:
+      - score
+      - user
+      - post
+    TokenObtainPair:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+          writeOnly: true
+      required:
+      - username
+      - password
