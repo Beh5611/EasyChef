@@ -140,35 +140,34 @@ const addIngAndAmount = () => {
 
 
 const api = useAxios();
-const handleSubmit = () => {
+const handleSubmit = async () => {
   const sendRecipe = async () => {
+    const formData = new FormData();
+
+    formData.append("name", rname);
+    formData.append("cuisine", cuisineName);
+    formData.append("serving", serving);
+    formData.append("image", imageval);
+    formData.append("prep_time", preptime);
+    formData.append("cook_time", cooktime);
+    formData.append("owner", user.id);
    
     await api.post(
-        `http://127.0.0.1:8000/recipes/create/`, 
-        {
-          name: rname,
-          cuisine: cuisineName,
-          serving: parseInt(serving),
-          // image: imageval,
-          prep_time: preptime,
-          cook_time: cooktime, 
-          owner: user.id
-          
-          
-        }
+        `http://127.0.0.1:8000/recipes/create/`, formData
     ).then(async response => {
       const recipe_id = response.data["id"];
-      // console.log(recipe_id);
+      
+  
       lst.forEach(async (item, index) => {
-        console.log("image", stepimagelst[index]);
+        const formData = new FormData();
+        console.log("image", stepimagelst[index], index);
+        formData.append("number", index.toString());
+   
+      formData.append("description", item);
+      formData.append("image", stepimagelst[index]);
         await api.post(
           `http://127.0.0.1:8000/recipes/${recipe_id}/create-step/`, 
-          {
-            number: index, 
-            description: item,
-            image: stepimagelst[index]
-
-          }
+          formData
         )
         .catch(error => {
           console.error(error);
@@ -198,7 +197,7 @@ const handleSubmit = () => {
         get_diet_lst.push("Gluten-Free");
       }
     
-      console.log(get_diet_lst);
+      // console.log(get_diet_lst);
 
    
 
@@ -273,8 +272,16 @@ const handleSubmit = () => {
     .catch(error => {
       console.error(error);
     });
+
+
+    
 }
 sendRecipe();
+
+  // Set a timeout for 2 seconds before redirecting
+  setTimeout(() => {
+    window.location.href = 'http://localhost:3000/profile/myrecipes';
+  }, 2000);
 }
 
     
