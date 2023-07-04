@@ -17,8 +17,8 @@
     font-weight: bold;
   }
   
-  input[type="text"],
-  textarea {
+
+  .inputSpaceSize {
     width: 80%;
     padding: 10px;
     border: none;
@@ -31,6 +31,9 @@
     height: 150px;
   }
   
+  .stepsBox{
+    margin-bottom: 20px;
+  }
   /* button {
     background-color: #4CAF50;
     color: white;
