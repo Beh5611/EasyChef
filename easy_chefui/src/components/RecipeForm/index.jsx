@@ -298,7 +298,7 @@ sendRecipe();
                 <MDBCol>
                     <MDBRow>
                       <label className="CreateRecipeLabel" htmlFor="name">Recipe Name</label>
-                      <MDBInput type="text" id="recipe-name" name="name" onChange={(e) => setRName(e.target.value)}/>
+                      <MDBInput type="text" id="recipe-name" name="name" className="inputSpaceSize" onChange={(e) => setRName(e.target.value)}/>
 
                     </MDBRow>
                     <MDBRow>
@@ -310,7 +310,7 @@ sendRecipe();
                 <MDBCol>
                     <label className="CreateRecipeLabel" htmlFor="recipe-ingredients">Ingredients</label>
                       <div className="ingredient-input">
-                            <MDBInput type="text"  value = {ingval} onChange={(e) => {SetIngVal(e.target.value); setShowSuggestions(true)}} required/>
+                            <MDBInput type="text" className="inputSpaceSize" value = {ingval} onChange={(e) => {SetIngVal(e.target.value); setShowSuggestions(true)}} required/>
                             { showSuggestions && (<ul className='suggestions'>
                             {results?.map((result, index) => (
                             <li key={index} onClick={() => handleSuggestionClick(result)}>{result}</li>
@@ -334,7 +334,7 @@ sendRecipe();
                       </MDBCol>
 
                       <MDBCol>
-                          <MDBInput type="text" placeholder="quantity" value={quantity} onChange={(e) => setQuantity(e.target.value)} required/>
+                          <MDBInput type="text" placeholder="quantity"  className="inputSpaceSize" value={quantity} onChange={(e) => setQuantity(e.target.value)} required/>
                       </MDBCol>
                     
 
@@ -398,6 +398,7 @@ sendRecipe();
                             Recipe Image
                           </label>
                           <MDBInput
+                            className="inputSpaceSize"
                             onChange={ (event) => {
                               // console.log(event.currentTarget.files[0]);
                               setImageVal(event.currentTarget.files[0]);
@@ -412,10 +413,10 @@ sendRecipe();
                   <MDBRow>
 
                     <MDBCol>
-                        <MDBInput type="text" label="preptime" onChange={(e) => setPrepTime(e.target.value)}/>
-                        <MDBInput type="text" label="cooktime" onChange={(e) => setCookTime(e.target.value)}/>
-                        <MDBInput type="text" label="cuisine" onChange={(e) => setCuisineName(e.target.value)}/>
-                        <MDBInput type="text" label="serving size" onChange={(e) => setServing(e.target.value)}/>
+                        <MDBInput type="text" className="inputSpaceSize" label="preptime" onChange={(e) => setPrepTime(e.target.value)}/>
+                        <MDBInput type="text" className="inputSpaceSize" label="cooktime" onChange={(e) => setCookTime(e.target.value)}/>
+                        <MDBInput type="text" className="inputSpaceSize" label="cuisine" onChange={(e) => setCuisineName(e.target.value)}/>
+                        <MDBInput type="text" className="inputSpaceSize" label="serving size" onChange={(e) => setServing(e.target.value)}/>
                     </MDBCol>
                     
 
@@ -427,7 +428,7 @@ sendRecipe();
 
                 <MDBCol>
                 <label className="CreateRecipeLabel" htmlFor="recipe-directions">Steps</label>
-                <MDBTextArea label="Write specific steps to create recipe" rows={4} id="instructions-input" value={val} onChange={(e) => SetVal(e.target.value)}/>
+                <MDBTextArea label="Write specific steps to create recipe" rows={4} className="stepsBox" id="instructions-input" value={val} onChange={(e) => SetVal(e.target.value)}/>
                 <MDBBtn color="warning" onClick={addToLst}>Add</MDBBtn>
                 <br/>
                 <StepList list={lst} stepimglst={stepimagelst} setter={setStepImageLst} />  
