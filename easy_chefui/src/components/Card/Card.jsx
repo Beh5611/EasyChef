@@ -27,6 +27,7 @@ function RecipeCard({ id, name, description, recipe_id, owner, last_date }) {
   const [favorites, setFavorites] = useState(0);
   const [like, setLike] = useState(false);
   const [favorite, setFavorite] = useState(false);
+  const [image, setImage] = useState()
   const api = useAxios();
 
   const getLike = async () => {
@@ -85,6 +86,15 @@ function RecipeCard({ id, name, description, recipe_id, owner, last_date }) {
     }
   };
 
+  const getImage = async () => {
+    const response = await api.get(
+      `http://127.0.0.1:8000/recipes/${recipe_id}/`
+    );
+    if (response.status === 200) {
+      setImage(response.data.image);
+    }
+  };
+
   const getUser = async (id) => {
     const response = await api.get(
       `http://127.0.0.1:8000/accounts/${id}/user/`
@@ -99,7 +109,8 @@ function RecipeCard({ id, name, description, recipe_id, owner, last_date }) {
     getUser(owner);
     getLike();
     getFavorite();
-  }, [id, owner]);
+    getImage();
+  }, [id, owner, image]);
 
   useEffect(() => {
     getLikes();
@@ -114,7 +125,7 @@ function RecipeCard({ id, name, description, recipe_id, owner, last_date }) {
         className="bg-image hover-overlay"
       >
         <MDBCardImage
-          src="https://mdbootstrap.com/img/new/standard/nature/111.webp"
+          src={image}
           fluid
           alt="..."
           className="p-0"

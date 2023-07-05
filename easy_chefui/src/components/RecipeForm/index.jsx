@@ -156,15 +156,17 @@ const handleSubmit = async () => {
         `http://127.0.0.1:8000/recipes/create/`, formData
     ).then(async response => {
       const recipe_id = response.data["id"];
+      console.log(lst[0]);
       
   
       lst.forEach(async (item, index) => {
         const formData = new FormData();
         console.log("image", stepimagelst[index], index);
         formData.append("number", index.toString());
+        formData.append("recipe_ID", recipe_id)
    
       formData.append("description", item);
-      formData.append("image", stepimagelst[index]);
+      // formData.append("image", stepimagelst[index]);
         await api.post(
           `http://127.0.0.1:8000/recipes/${recipe_id}/create-step/`, 
           formData
@@ -279,9 +281,9 @@ const handleSubmit = async () => {
 sendRecipe();
 
   // Set a timeout for 2 seconds before redirecting
-  setTimeout(() => {
-    window.location.href = 'http://localhost:3000/profile/myrecipes';
-  }, 2000);
+  // setTimeout(() => {
+  //   window.location.href = 'http://localhost:3000/profile/myrecipes';
+  // }, 2000);
 }
 
     
