@@ -281,9 +281,9 @@ const handleSubmit = async () => {
 sendRecipe();
 
   // Set a timeout for 2 seconds before redirecting
-  // setTimeout(() => {
-  //   window.location.href = 'http://localhost:3000/profile/myrecipes';
-  // }, 2000);
+  setTimeout(() => {
+     window.location.href = 'http://localhost:3000/profile/myrecipes';
+   }, 2000);
 }
 
     
