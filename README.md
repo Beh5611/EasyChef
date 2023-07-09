@@ -34,7 +34,7 @@ Next, users are prompted to provide step-by-step instructions for preparing the 
 
 To enhance the visual appeal and comprehension of the recipe, the form often allows users to upload accompanying images or videos. This feature enables users to showcase the final dish or provide visual cues at different stages of the preparation process.
 
-
+<h2> All Recipes </h2>
 <image src="https://github.com/Beh5611/EasyChef/assets/86588271/743775fc-bc41-4fc3-bf85-97ba5c3b7742" />
 The "All Recipes" page on your website serves as a comprehensive collection of culinary delights, showcasing a wide array of recipe cards that cater to various tastes and preferences. This page is designed to provide visitors with a visually appealing and organized layout that encourages exploration and discovery of new recipes.
 
