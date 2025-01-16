@@ -45,7 +45,7 @@ class LoginView(APIView):
         if user:
             login(request, user)
             tokens = create_jwt_pair_for_user(user)
-            response = {"message": "Login Successfull", "tokens": tokens}
+            response = {"message": "Login Successful", "tokens": tokens}
             userdata = UserSerializer(user).data
             request.session['user'] = userdata
             request.session['tokens'] = tokens

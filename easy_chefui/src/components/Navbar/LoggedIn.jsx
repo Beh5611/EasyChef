@@ -8,80 +8,88 @@ function LoggedIn() {
   const [avt, setAvt] = useState();
   const [url, setUrl] = useState("None");
 
+  const [isOpen, setIsOpen] = useState(false)
   const { hostname, port } = window.location;
 
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  }
   useEffect(() => {
     if (user) {
       setAvt(`http://127.0.0.1:8000${user.avatar}`);
     }
-
     setUrl(`http://${hostname}:${port}`);
   }, [user, url]);
   return (
     <>
-      <nav className="navbar navbar-expand-lg .bg-white">
-        <div className="container-fluid">
+      <nav className="bg-white w-full">
+        <div className="flex flex-row justify-between px-4">
           <div
-            className="collapse navbar-collapse ms-5 ps-5"
+            className="flex justify-between"
             id="navbarSupportedContent"
           >
             <a
-              className="navbar-brand mt-2 mt-lg-0 my-0 py-0 "
+              className=" flex items-center"
               href={`${url}/`}
             >
-              <img
-                className="rounded-7"
-                src={`${url}/assets/easychef.png`}
-                height="45"
-                alt="EasyChef"
-                loading="lazy"
-              />
+            
+            <div className='flex relative w-12 h-12'>
+                <img
+                    className="rounded-md "
+                    src={`${url}/assets/easychef.png`}
+                    alt="EasyChef"
+                    loading="lazy"
+                    />
+
+            </div>
             </a>
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item">
-                <a className="nav-link" href={`${url}/create/`}>
-                  <span className="navitems">Create Recipe</span>
+            <ul className="flex flex-row space-x-4  px-4 items-center">
+              <li className="">
+                <a className="" href={`${url}/create/`}>
+                  <span className="">Create Recipe</span>
                 </a>
               </li>
-              <li className="nav-item">
-                <a className="nav-link" href={`${url}/profile/myrecipes`}>
-                  <span className="navitems">My Recipe</span>
+              <li className="">
+                <a className="" href={`${url}/profile/myrecipes`}>
+                  <span className="">My Recipe</span>
                 </a>
               </li>
             </ul>
           </div>
 
-          <div className="d-flex align-items-center">
-            <a className="text-reset me-3" href={`${url}/shopping-cart/`}>
+          <div className="flex items-center ">
+            <a className="text-gray-800 mr-6" href={`${url}/shopping-cart/`}>
               <i className="fas fa-shopping-cart"></i>
             </a>
 
-            <div className="dropdown me-5 pe-5">
+            <div className="relative mr-5 pr-5">
               <a
-                className="dropdown-toggle d-flex align-items-center hidden-arrow"
+                className="flex items-center cursor-pointer"
                 href="#"
+                onClick={toggleDropdown}
                 id="navbarDropdownMenuAvatar"
                 role="button"
-                data-mdb-toggle="dropdown"
-                aria-expanded="false"
               >
                 <img
                   src={avt}
-                  className="rounded-circle"
+                  className="rounded-full"
                   height="30"
                   width="30"
                   alt="avatar"
                   loading="lazy"
                 />
               </a>
-              <div className="dropdown-content">
-                <a href={`${url}/profile/`}>
-                  <span className="drops ps-2 ms-1">Edit Profile</span>
-                </a>
-                <a href={`${url}/logout/`}>
-                  <span className="drops ps-3 ms-1">Log Out</span>
-                </a>
-              </div>
+              
+              {isOpen && (
+                <div className="absolute bg-white shadow-md rounded-md mt-2 w-48 z-20 right-7">
+                  <a href={`${url}/profile/`} className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                    <span className="ps-2 ms-1">Edit Profile</span>
+                  </a>
+                  <a href={`${url}/logout/`} className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                    <span className="ps-3 ms-1">Log Out</span>
+                  </a>
+                </div>
+              )}
             </div>
           </div>
         </div>

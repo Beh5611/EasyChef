@@ -1,4 +1,4 @@
-body {
+/* body {
   margin: 0;
   font-family: Roboto, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -43,4 +43,7 @@ code {
 .form-error {
   color: red;
   font-size: 12px;
-}
+} */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

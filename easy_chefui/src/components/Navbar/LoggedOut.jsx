@@ -1,55 +1,45 @@
 import React, { useEffect, useState } from 'react';
-import {
-  MDBContainer,
-  MDBNavbar,
-  MDBBtn
-} from 'mdb-react-ui-kit';
-import './style_out.css';
 
 function LoggedOut() {
-    const [url, setUrl] = useState("None");
-    
-    
-    const { hostname, port } = window.location;
+  const [url, setUrl] = useState("None");
+  const { hostname, port } = window.location;
+
+  useEffect(() => {
+    setUrl(`http://${hostname}:${port}`);
+  }, [url]);
+
+  return (
+    <>
+      <nav className="bg-white">
+        <div className="max-w-screen-xl mx-auto px-6 py-2 flex justify-between items-center">
+          <a href={`${url}/`} className="flex items-center">
+            <div className='flex relative w-12 h-12'>
+                <img
+                    className="rounded-md "
+                    src={`${url}/assets/easychef.png`}
+                    alt="EasyChef"
+                    loading="lazy"
+                    />
 
 
-    
-    useEffect(() =>{
-        setUrl(`http://${hostname}:${port}`);
-    }, [url])
-    return (
-        <>
-            <MDBNavbar light bgColor='white'>
-                <MDBContainer className=''>
-                    <a class="navbar-brand mt-2 mt-lg-0 my-0 py-0 " href={`${url}/`}>
-                        <img
-                        class= "rounded-7"
-                        src={`${url}/assets/easychef.png`}
-                        height="45"
-                        alt="EasyChef"
-                        loading="lazy"
-                        />
-                    </a>
-                    
-                    <div className=' end-0 ml-5 pl-5'>
-                        
-                        <MDBBtn tag='a' href={`${url}/register/`} className='position-relative ms-5 ps-5' color='tertiary' rippleColor='light' style={{color: '#4f4f4f'}}>
-                            <span className='signup'>Sign up for free</span>
-                        </MDBBtn> 
-                        <MDBBtn tag='a' href={`${url}/login/`}  className='ms-3' color='warning'>
-                            <div className='pl-5 ml-5'>
-                                LOGIN
-                            </div>
-                        </MDBBtn>
-                    </div>
-                    
-                </MDBContainer>
-            </MDBNavbar>
+            </div>
+            
+          </a>
 
-        </>
-
-
-    );
+          <div className="flex items-center space-x-4">
+            <a href={`${url}/register/`} className="text-gray-700 hover:text-gray-900 text-md">
+              <button className="bg-transparent  rounded-lg px-6 py-2 text-gray-700 hover:bg-gray-100 transition duration-200">
+                Sign up for free
+              </button>
+            </a>
+            <a href={`${url}/login/`} className="text-white bg-yellow-500 hover:bg-yellow-400 rounded-lg px-6 py-2 text-lg font-semibold transition duration-200">
+              Login
+            </a>
+          </div>
+        </div>
+      </nav>
+    </>
+  );
 }
 
 export default LoggedOut;
