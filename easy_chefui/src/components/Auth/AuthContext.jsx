@@ -130,8 +130,6 @@ export const AuthProvider = ({ children }) => {
     );
     console.log("res1" + JSON.stringify(response));
     console.log(document.cookie);
-    // sessionStorage.removeItem("user");
-    // sessionStorage.removeItem("tokens");
     setUser(null);
     setAuthTokens(null);
   };

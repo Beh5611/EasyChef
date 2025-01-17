@@ -12,6 +12,7 @@ import Login from "./components/Auth/Login";
 import Logout from "./components/Auth/Logout";
 import Register from "./components/Auth/Register";
 import UserProfile from "./components/Auth/UserProfile";
+import RecipeForm from "./components/RecipeForm"
 // import EditRecipe from "./components/EditRecipe/EditRecipe";
 import axios from "axios";
 import { useContext } from "react";
@@ -103,7 +104,7 @@ function App() {
       path: "/posts/search/:sort",
       loader: async ({ request, params }) => {
         const url = new URL(request.url);
-        const querystring = url.searchParams;
+        const querystring = url.searchParams ? url.searchParams : "filter";
         const response = await axios.get(
           `http://127.0.0.1:8000/posts/search/${params.sort}/?${querystring}`
         );
@@ -136,11 +137,17 @@ function App() {
       element: <RecipeDetails/>,
       errorElement: <ErrorPage message="user not logged in." />,
     },
-    // {
-    //   path: "/create",
-    //   element: <RecipeForm/>,
-    //   errorElement: <ErrorPage/>
-    // }, 
+    {
+      path: "/create",
+      element: <RecipeForm/>,
+      loader: async () => {
+        const unauth = unauthRedirect();
+        if (unauth) {
+          return unauth;
+        }
+      },
+      errorElement: <ErrorPage message="user not logged in." />,
+    }, 
     {
       path: "/posts/:postid/edit",
       loader: async ({params}) => {

@@ -22,7 +22,7 @@ function LoggedIn() {
   }, [user, url]);
   return (
     <>
-      <nav className="bg-white w-full">
+      <nav className="bg-white w-full border border-gray-100">
         <div className="flex flex-row justify-between px-4">
           <div
             className="flex justify-between"

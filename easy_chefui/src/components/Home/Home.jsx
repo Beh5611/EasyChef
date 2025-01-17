@@ -1,62 +1,59 @@
-import {
-  MDBRow,
-  MDBCol,
-  MDBBtn
-} from 'mdb-react-ui-kit';
 import Slider from "react-slick";
-import './style.css';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import LoggedIn from '../Navbar/LoggedIn';
 import LoggedOut from '../Navbar/LoggedOut';
+import { Link } from "react-router-dom";
+import { useContext } from "react";
+import AuthContext from "../Auth/AuthContext";
+
+
 function Home() {
-  const images = ['assets/fruits.jpg', 'assets/steak.jpg']
+  const images = ['assets/fruits.jpg', 'assets/steak.jpg'];
+
+  const { user, logoutUser, authRedirect, unauthRedirect } =
+  useContext(AuthContext);
+
+
   const settings = {
-    // infinite: true,
-    // dots: true,
-    // slidesToShow: 1,
-    // slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 6000,
     cssEase: "linear",
-    // centerMode: true,
-    // centerPadding: 0,
     dots: true,
     infinite: true,
     slidesToShow: 1,
     slidesToScroll: 1
   };
+
+
   return (
-    <>
-      
-      <MDBRow className='w-100 d-flex justify-content-center p-0 py-5 m-0'>
-        <MDBCol size="5" className="column1 p-5 m-0 ">
-          
-          <h1 className="heading w-100"><span className='text-warning'>Access & Create</span> Millions of Mouth Watering <span className='text-warning'>Recipes</span></h1>
-        
-          <h3 className='pt-4 my-3'>EasyChef has created the perfect app for you to experiment with fun and new recipes as well blessing the world with your own creativity!</h3>
-          <div className='d-flex justify-content-center py-4'>
-            <MDBBtn rounded color='warning'>
+    <div className="w-full flex justify-center py-10">
+      <div className="w-2/5 p-5">
+        <h1 className="text-4xl font-bold text-gray-900">
+          <span className="text-yellow-500">Access & Create</span> Millions of Mouth Watering <span className="text-yellow-500">Recipes</span>
+        </h1>
+        <h3 className="text-lg text-gray-700 pt-4 my-3">
+          EasyChef has created the perfect app for you to experiment with fun and new recipes as well as bless the world with your own creativity!
+        </h3>
+        <div className="flex justify-center py-4">
+          <Link to='/create'>
+            <button className="px-6 py-2 bg-yellow-500 text-white font-bold rounded-full shadow-md hover:bg-yellow-600">
               Create a Recipe!
-            </MDBBtn>
-          </div>
-        </MDBCol>
-
-        <MDBCol size="6" className='slide p-0 m-0'>
-          <Slider {...settings}>
-            {images.map((img) => (
-              <div className='d-flex justify-content-center'>
-                <img src={img} alt={img} style={{height: '70vh', width: 'auto'}}
-                
-                />
-                
-              </div>
-              )
-            )}
-            
-          </Slider>
-        </MDBCol>
-
-      </MDBRow>
-    </>
+            </button>
+          </Link>
+          
+        </div>
+      </div>
+      <div className="w-3/5 flex justify-center items-center">
+        <Slider {...settings} className="w-full">
+          {images.map((img, index) => (
+            <div key={index} className="flex justify-center">
+              <img src={img} alt={img} className="h-[60vh] w-auto mx-auto" />
+            </div>
+          ))}
+        </Slider>
+      </div>
+    </div>
   );
 }
 

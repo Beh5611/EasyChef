@@ -10,7 +10,7 @@ function LoggedOut() {
 
   return (
     <>
-      <nav className="bg-white">
+      <nav className="bg-white border border-gray-100">
         <div className="max-w-screen-xl mx-auto px-6 py-2 flex justify-between items-center">
           <a href={`${url}/`} className="flex items-center">
             <div className='flex relative w-12 h-12'>
