@@ -27,9 +27,9 @@ class GetPostView(RetrieveAPIView):
 
 class GetPostAllView(ListAPIView):
     serializer_class = PostSerializer
-    queryset = Post.objects.all()
-    # def get_queryset(self):
-    #     return Post.objects.all()
+    print(Post.objects.all())
+    def get_queryset(self):
+        return Post.objects.all()
 
 
 class GetPostsView(ListAPIView, UpdateAPIView):

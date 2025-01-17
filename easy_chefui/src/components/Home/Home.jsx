@@ -13,8 +13,7 @@ import CardList from "../CardList/CardList";
 function Home() {
   const images = ['assets/fruits.jpg', 'assets/steak.jpg'];
   const [recipes , setRecipes] = useState([])
-  const { user, logoutUser, authRedirect, unauthRedirect } =
-  useContext(AuthContext);
+  const { user, logoutUser, authRedirect, unauthRedirect } =useContext(AuthContext);
   const api = useAxios();
 
   
@@ -31,23 +30,21 @@ function Home() {
 
  
   const getRecipes = async () => {
-    const sort = "ratings"; // Use "filter" as default if params.sort is undefined
-    const response = await api
-      .get(
-        `http://127.0.0.1:8000/posts/all/`
-
-      )
-      return response.data.results
+    try {
+      const response = await fetch(`http://127.0.0.1:8000/posts/all/`);
+      const data = await response.json();
+      setRecipes(data.results); 
+    } catch (error) {
+      console.error("Error fetching recipes:", error);
+    }
+  };
   
-  }
-
-  useEffect(async ()=> {
-    const recipes = await getRecipes();
-
-    setRecipes(recipes);
-    console.log( "trash", recipes);
-
-  }, [])
+  useEffect(() => {
+   
+    getRecipes();
+   
+  }, []); 
+  
 
   return (
     <>
@@ -78,11 +75,17 @@ function Home() {
         </Slider>
       </div>
     </div>
-    <div className="">
+    <div className="grid-cols-3 my-5">
 
-       <CardList col_size={3} sort={"filter"} list={recipes} />
+       <CardList list={recipes} />
 
     </div>
+    {/* Footer */}
+    <footer className="w-full bg-gray-800 text-white py-6">
+        <div className="text-center">
+          <p>© 2025 EasyChef. All Rights Reserved.</p>
+        </div>
+      </footer>
     </>
   );
 }

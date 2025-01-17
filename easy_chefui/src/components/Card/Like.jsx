@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   MDBContainer,
   MDBRow,
@@ -8,31 +8,46 @@ import {
 } from "mdb-react-ui-kit";
 import axios from "axios";
 import { redirect } from "react-router-dom";
-import { useAuth } from "../Auth/AuthContext";
+import AuthContext, { useAuth } from "../Auth/AuthContext";
 import useAxios from "../Auth/AuthAxios";
+import { useNavigate } from "react-router-dom";
 
 function LikeBtn({ post_id, likeState: { like, setLike } }) {
-  const { user } = useAuth();
+  const { authTokens, setAuthTokens, logoutUser } = useContext(AuthContext);
 
+  const { user } = useAuth();
+  const navigate = useNavigate();
   const api = useAxios();
 
   // update the like
   const updateLike = async () => {
-    if (like) {
-      const response = await api.delete(
-        `http://127.0.0.1:8000/posts/${post_id}/unlike/`
-      );
-      if (response.status === 204) {
-        setLike(false);
+    try{
+      if (like) {
+        const response = await api.delete(
+          `http://127.0.0.1:8000/posts/${post_id}/unlike/`
+        );
+        if (response.status === 204) {
+          setLike(false);
+        }
+      } 
+      else {
+        const response = await api.post(
+          `http://127.0.0.1:8000/posts/${post_id}/like/`
+        );
+        if (response.status === 201) {
+          setLike(true);
+        }  
       }
-    } else {
-      const response = await api.post(
-        `http://127.0.0.1:8000/posts/${post_id}/like/`
-      );
-      if (response.status === 201) {
-        setLike(true);
-      }
+
     }
+    catch(error){
+
+      navigate("/login");
+      
+    }
+    
+    console.log("hello im here")
+   
   };
 
   // get users like from database

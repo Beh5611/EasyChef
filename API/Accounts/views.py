@@ -110,8 +110,8 @@ class LogOutView(APIView):
 
 class getAccountView(RetrieveAPIView):
     serializer_class = UserSerializer
-    authentication_classes = [authentication.SessionAuthentication]
-    permission_classes = [permissions.IsAuthenticated]
+    # authentication_classes = [authentication.SessionAuthentication]
+    # permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self):
         return get_object_or_404(UserProfile, id=self.kwargs['id'])

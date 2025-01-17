@@ -4,7 +4,7 @@ import RecipeCard from "../Card/Card";
 import { MDBRow, MDBCol, MDBContainer } from "mdb-react-ui-kit";
 import { useLoaderData } from "react-router-dom";
 
-const CardList = ({ col_size, sort, list }) => {
+const CardList = ({ list }) => {
   // let results = useLoaderData();
   // const [displayResults, setDisplayResults] = useState(results);
 
@@ -23,9 +23,8 @@ const CardList = ({ col_size, sort, list }) => {
   // }, [sort]);
 
   const cardArray = list.map((post, index) => {
-    console.log("post: " + post);
     return (
-      <MDBCol key={index} style={{ width: "19rem" }}>
+<div className="max-w-sm bg-white rounded-lg shadow-lg overflow-hidden hover:translate-y-[-0.75rem] transition-all duration-300">
         <RecipeCard
           name={post.title}
           recipe_id={post.recipe}
@@ -34,17 +33,15 @@ const CardList = ({ col_size, sort, list }) => {
           last_date={post.date_modified}
           id={post.id}
         />
-      </MDBCol>
+      </div>
     );
   });
   return (
-    <MDBContainer>
-      <MDBRow
-        className={`gx-3 gy-3 row-cols-${col_size} justify-content-center`}
-      >
+    <div className="container mx-auto px-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {cardArray}
-      </MDBRow>
-    </MDBContainer>
+      </div>
+  </div>
   );
 };
 
