@@ -4,10 +4,11 @@ from Posts.views import GetPostView, GetPostsView, CreatePostView, DeletePostVie
     GetLikedPostsView, UnLikePostView, FavoritePostView, GetFavoritedPostsView, UnFavoritePostView, CommentPostView, \
     GetCommentPostView, GetCommentedPostsView, EditCommentPostView, UnCommentPostView, RatePostView, GetRatePostView, \
     EditRatingPostView, UnRatePostView, GetCommentsPostView, GetRatingsPostView, MyRecipes, GetPostFavoritesView, \
-    SearchPostsView
+    SearchPostsView, GetPostAllView
 
 urlpatterns = [
     path('create/', CreatePostView.as_view()),
+    path('all/', GetPostAllView.as_view()),
     path('<int:pk>/', GetPostView.as_view()),
     path('<str:sort>/all/', GetPostsView.as_view()),
     path('search/<str:sort>/', SearchPostsView.as_view()),

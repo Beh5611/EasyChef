@@ -11,8 +11,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from Recipes.Trie import trie
 
-from Recipes.models import Diet, Ingredient, Recipe, Step
-from Recipes.serializers import DietSerializer, IngredientSerializer, \
+from Recipes.models import Diet, Recipe, Step
+from Recipes.serializers import DietSerializer, \
     RecipeSerializer, StepSerializer
 
 
@@ -23,11 +23,11 @@ class RecipesView(ListAPIView):
         return Recipe.objects.all()
 
 
-class IngredientsView(ListAPIView):
-    serializer_class = IngredientSerializer
+# class IngredientsView(ListAPIView):
+#     serializer_class = IngredientSerializer
 
-    def get_queryset(self):
-        return Ingredient.objects.filter(recipe_ID=self.kwargs['recipe_id'])
+#     def get_queryset(self):
+#         return Ingredient.objects.filter(recipe_ID=self.kwargs['recipe_id'])
 
 
 class StepsView(ListAPIView):
@@ -81,21 +81,21 @@ class CreateStepView(CreateAPIView):
 
 
 
-class CreateIngredientView(CreateAPIView):
-    authentication_classes = [authentication.SessionAuthentication]
-    permission_classes = [permissions.IsAuthenticated]
-    serializer_class = IngredientSerializer
+# class CreateIngredientView(CreateAPIView):
+#     authentication_classes = [authentication.SessionAuthentication]
+#     permission_classes = [permissions.IsAuthenticated]
+#     serializer_class = IngredientSerializer
 
-    def create(self, request, *args, **kwargs):
-        data = QueryDict('', mutable=True)
-        data['recipe_ID'] = self.kwargs['recipe_id']
-        data.update(request.data)
-        serializer = self.get_serializer(data=data)
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        headers = self.get_success_headers(serializer.data)
-        return Response(serializer.data, status=status.HTTP_201_CREATED,
-                        headers=headers)
+#     def create(self, request, *args, **kwargs):
+#         data = QueryDict('', mutable=True)
+#         data['recipe_ID'] = self.kwargs['recipe_id']
+#         data.update(request.data)
+#         serializer = self.get_serializer(data=data)
+#         serializer.is_valid(raise_exception=True)
+#         self.perform_create(serializer)
+#         headers = self.get_success_headers(serializer.data)
+#         return Response(serializer.data, status=status.HTTP_201_CREATED,
+#                         headers=headers)
 
 
 class CreateDietView(CreateAPIView):
@@ -148,29 +148,29 @@ def UpdateRecipeView(request, *args, **kwargs):
     return JsonResponse(jresponse)
 
 
-@csrf_exempt
-@api_view(['POST'])
-@authentication_classes([SessionAuthentication])
-@permission_classes([IsAuthenticated])
-def UpdateIngredientView(request, *args, **kwargs):
-    jresponse = {}
-    r = get_object_or_404(Ingredient, id=kwargs['id'])
-    if request.method   == 'POST':
-        if name := request.data.get('name', None):
-            r.name = name
-            jresponse['name'] = name
-        if amount := request.data.get('amount', None):
-            r.amount = amount
-            jresponse['amount'] = amount
-        if amount_type := request.data.get('amount_type', None):
-            r.amount_type = amount_type
-            jresponse['amount_type'] = amount_type
-        if recipe_ID := request.data.get('recipe_ID', None):
-            r.recipe_ID = get_object_or_404(Recipe, id=recipe_ID)
-            jresponse['recipe_ID'] = recipe_ID
+# @csrf_exempt
+# @api_view(['POST'])
+# @authentication_classes([SessionAuthentication])
+# @permission_classes([IsAuthenticated])
+# def UpdateIngredientView(request, *args, **kwargs):
+#     jresponse = {}
+#     r = get_object_or_404(Ingredient, id=kwargs['id'])
+#     if request.method   == 'POST':
+#         if name := request.data.get('name', None):
+#             r.name = name
+#             jresponse['name'] = name
+#         if amount := request.data.get('amount', None):
+#             r.amount = amount
+#             jresponse['amount'] = amount
+#         if amount_type := request.data.get('amount_type', None):
+#             r.amount_type = amount_type
+#             jresponse['amount_type'] = amount_type
+#         if recipe_ID := request.data.get('recipe_ID', None):
+#             r.recipe_ID = get_object_or_404(Recipe, id=recipe_ID)
+#             jresponse['recipe_ID'] = recipe_ID
 
-    r.save()
-    return JsonResponse(jresponse)
+#     r.save()
+#     return JsonResponse(jresponse)
 
 
 @csrf_exempt
@@ -223,19 +223,19 @@ def AddDietView(request, *args, **kwargs):
 
 
 
-@csrf_exempt
-@api_view(['POST'])
-@authentication_classes([SessionAuthentication])
-@permission_classes([IsAuthenticated])
-def AddIngredientView(request, *args, **kwargs):
-    r = get_object_or_404(Ingredient, name=kwargs['name'])
-    if request.method  == 'POST':
+# @csrf_exempt
+# @api_view(['POST'])
+# @authentication_classes([SessionAuthentication])
+# @permission_classes([IsAuthenticated])
+# def AddIngredientView(request, *args, **kwargs):
+#     r = get_object_or_404(Ingredient, name=kwargs['name'])
+#     if request.method  == 'POST':
 
-        if rid := request.data.get('recipe_ID', None):
-            r.recipe_ID.add(rid)
+#         if rid := request.data.get('recipe_ID', None):
+#             r.recipe_ID.add(rid)
 
-    r.save()
-    return Response(status=204)
+#     r.save()
+#     return Response(status=204)
 
 class GetDiets(ListAPIView):
     serializer_class = DietSerializer
@@ -263,16 +263,16 @@ def DeleteRecipe(request, *args, **kwargs):
     return Response(status=405)
 
 
-@csrf_exempt
-@api_view(('POST',))
-@authentication_classes([SessionAuthentication])
-@permission_classes([IsAuthenticated])
-def DeleteIngredient(request, *args, **kwargs):
-    if request.method == 'POST':
-        r = get_object_or_404(Ingredient, id=kwargs['id'])
-        r.delete()
-        return Response(status=204)
-    return Response(status=405)
+# @csrf_exempt
+# @api_view(('POST',))
+# @authentication_classes([SessionAuthentication])
+# @permission_classes([IsAuthenticated])
+# def DeleteIngredient(request, *args, **kwargs):
+#     if request.method == 'POST':
+#         r = get_object_or_404(Ingredient, id=kwargs['id'])
+#         r.delete()
+#         return Response(status=204)
+#     return Response(status=405)
 
 
 @csrf_exempt
@@ -289,24 +289,24 @@ def DeleteStep(request, *args, **kwargs):
 
 
 
-@csrf_exempt
-@api_view(('POST',))
-def AutoComplete(request, *args, **kwargs):
-    jresponse = {}
-    if request.method == 'POST':
-        if ingredient := request.data.get('ingredient', None):
-            lst = trie.autoComplete(ingredient)
-            lst2 = trie.autoCorrect(ingredient, errorMax=10)
-            jresponse['auto_correct'] = lst2
-            jresponse['auto_complete'] = lst
-            jresponse['response'] = lst + list(set(lst2) - set(lst))
+# @csrf_exempt
+# @api_view(('POST',))
+# def AutoComplete(request, *args, **kwargs):
+#     jresponse = {}
+#     if request.method == 'POST':
+#         if ingredient := request.data.get('ingredient', None):
+#             lst = trie.autoComplete(ingredient)
+#             lst2 = trie.autoCorrect(ingredient, errorMax=10)
+#             jresponse['auto_correct'] = lst2
+#             jresponse['auto_complete'] = lst
+#             jresponse['response'] = lst + list(set(lst2) - set(lst))
 
-        if recipe := request.data.get('recipe', None):
-            lst = trie.autoComplete(ingredient)
-            lst2 = trie.autoCorrect(ingredient, errorMax=10)
-            jresponse['auto_correct'] = lst2
-            jresponse['auto_complete'] = lst
-            jresponse['response'] = lst + list(set(lst2) - set(lst))
-        return JsonResponse(jresponse)
-    return Response(status=405)
+#         if recipe := request.data.get('recipe', None):
+#             lst = trie.autoComplete(ingredient)
+#             lst2 = trie.autoCorrect(ingredient, errorMax=10)
+#             jresponse['auto_correct'] = lst2
+#             jresponse['auto_complete'] = lst
+#             jresponse['response'] = lst + list(set(lst2) - set(lst))
+#         return JsonResponse(jresponse)
+#     return Response(status=405)
 

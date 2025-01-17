@@ -12,7 +12,7 @@ from rest_framework.response import Response
 from rest_framework.utils import json
 from rest_framework.views import APIView
 
-from Recipes.models import Recipe, Ingredient
+from Recipes.models import Recipe
 from ShoppingCart.models import ShoppingCart
 from ShoppingCart.serializers import ShoppingSerializer
 

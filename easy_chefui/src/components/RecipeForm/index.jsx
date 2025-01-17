@@ -71,30 +71,30 @@ const RecipeForm = () => {
     }
     let lst_component = <IngredientList inglst={inglst} amountlst = {amountLst} quantitylst={quantitylst}/>;
 
-   useEffect(() => {
-      const getData = async () => {
+  //  useEffect(() => {
+  //     const getData = async () => {
      
-          await axios.post(
-              `http://127.0.0.1:8000/recipes/auto-complete/`, 
-              {
-                ingredient: ingval,
+  //         await axios.post(
+  //             `http://127.0.0.1:8000/recipes/auto-complete/`, 
+  //             {
+  //               ingredient: ingval,
 
-              }
-          ).then(response => {
-            const results = response.data["response"];
-            setResults(results);
-            console.log(results);
-            console.log(response.status);
-          })
-          .catch(error => {
-            console.error(error);
-          });
-      }
-      getData();
+  //             }
+  //         ).then(response => {
+  //           const results = response.data["response"];
+  //           setResults(results);
+  //           console.log(results);
+  //           console.log(response.status);
+  //         })
+  //         .catch(error => {
+  //           console.error(error);
+  //         });
+  //     }
+  //     getData();
 
-    lst_component = <IngredientList inglst={inglst} amountlst = {amountLst} quantitylst={quantitylst}/>;
+  //   lst_component = <IngredientList inglst={inglst} amountlst = {amountLst} quantitylst={quantitylst}/>;
         
-  }, [ingval, inglst, amountLst, quantitylst]);
+  // }, [ingval, inglst, amountLst, quantitylst]);
 
   const handleSuggestionClick = (suggestion) => {
     SetIngVal(suggestion);
@@ -310,7 +310,7 @@ sendRecipe();
                 </MDBCol>
 
                 <MDBCol>
-                    <label className="CreateRecipeLabel" htmlFor="recipe-ingredients">Ingredients</label>
+                    {/* <label className="CreateRecipeLabel" htmlFor="recipe-ingredients">Ingredients</label>
                       <div className="ingredient-input">
                             <MDBInput type="text" className="inputSpaceSize" value = {ingval} onChange={(e) => {SetIngVal(e.target.value); setShowSuggestions(true)}} required/>
                             { showSuggestions && (<ul className='suggestions'>
@@ -345,11 +345,22 @@ sendRecipe();
                     </MDBRow>
                           
 
-                      </div>
+                      </div> 
                     
                    
                     <MDBBtn color="warning" onClick={(e) => addIngAndAmount()}>Add</MDBBtn>
                     {lst_component}
+
+                    */}
+                    
+                <label className="CreateRecipeLabel" htmlFor="recipe-directions">Steps</label>
+                <MDBTextArea label="Write specific steps to create recipe" rows={4} className="stepsBox" id="instructions-input" value={val} onChange={(e) => SetVal(e.target.value)}/>
+                <MDBBtn color="warning" onClick={addToLst}>Add</MDBBtn>
+                <br/>
+                <StepList list={lst} stepimglst={stepimagelst} setter={setStepImageLst} />  
+                    
+          
+                
 
 
                 </MDBCol>
@@ -417,26 +428,22 @@ sendRecipe();
                     <MDBCol>
                         <MDBInput type="text" className="inputSpaceSize" label="preptime" onChange={(e) => setPrepTime(e.target.value)}/>
                         <MDBInput type="text" className="inputSpaceSize" label="cooktime" onChange={(e) => setCookTime(e.target.value)}/>
+                
+                    </MDBCol>
+                    <MDBCol>
+                       
                         <MDBInput type="text" className="inputSpaceSize" label="cuisine" onChange={(e) => setCuisineName(e.target.value)}/>
                         <MDBInput type="text" className="inputSpaceSize" label="serving size" onChange={(e) => setServing(e.target.value)}/>
                     </MDBCol>
                     
+          
 
                   </MDBRow>
 
-
                 </MDBCol>
 
 
-                <MDBCol>
-                <label className="CreateRecipeLabel" htmlFor="recipe-directions">Steps</label>
-                <MDBTextArea label="Write specific steps to create recipe" rows={4} className="stepsBox" id="instructions-input" value={val} onChange={(e) => SetVal(e.target.value)}/>
-                <MDBBtn color="warning" onClick={addToLst}>Add</MDBBtn>
-                <br/>
-                <StepList list={lst} stepimglst={stepimagelst} setter={setStepImageLst} />  
-                    
-          
-                </MDBCol>
+               
              
                 
             </MDBRow>

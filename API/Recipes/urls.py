@@ -1,14 +1,12 @@
 from django.urls import path
 
-from Recipes.views import AccessRecipeView, AddDietView, AllDiets, AutoComplete, \
+from Recipes.views import AccessRecipeView, AddDietView, AllDiets, \
     CreateDietView, \
-    CreateIngredientView, \
     CreateRecipeView, \
-    CreateStepView, DeleteIngredient, DeleteRecipe, DeleteStep, \
-    IngredientsView, \
+    CreateStepView, DeleteRecipe, DeleteStep, \
     RecipesView, \
-    StepsView, UpdateDietView, UpdateIngredientView, \
-    UpdateRecipeView, UpdateStepView, GetDiets, GetDietId, AddIngredientView
+    StepsView, UpdateDietView, \
+    UpdateRecipeView, UpdateStepView, GetDiets, GetDietId
 
 urlpatterns = [
     #Recipe
@@ -18,12 +16,12 @@ urlpatterns = [
     path('<int:recipe_id>/update/', UpdateRecipeView),
     path('<int:recipe_id>/delete/', DeleteRecipe),
 
-    #Ingredients
-    path('<int:recipe_id>/ingredients/', IngredientsView.as_view()),
-    path('<int:recipe_id>/add-ingredient/', CreateIngredientView.as_view()),
-    path('<str:name>/add-to-ingredient/', AddIngredientView),
-    path('<int:id>/update-ingredient/', UpdateIngredientView),
-    path('<int:id>/delete-ingredient/', DeleteIngredient),
+    # #Ingredients
+    # path('<int:recipe_id>/ingredients/', IngredientsView.as_view()),
+    # path('<int:recipe_id>/add-ingredient/', CreateIngredientView.as_view()),
+    # path('<str:name>/add-to-ingredient/', AddIngredientView),
+    # path('<int:id>/update-ingredient/', UpdateIngredientView),
+    # path('<int:id>/delete-ingredient/', DeleteIngredient),
 
     #Diets
     path('<int:recipe_id>/diets/', AllDiets.as_view()),
@@ -41,5 +39,5 @@ urlpatterns = [
     path('<int:id>/delete-step/', DeleteStep),
 
     #autocomplete
-    path('auto-complete/', AutoComplete)
+    # path('auto-complete/', AutoComplete)
 ]

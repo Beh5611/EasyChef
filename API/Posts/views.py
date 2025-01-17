@@ -13,7 +13,7 @@ from rest_framework.utils import json
 from Accounts.models import UserProfile
 from Posts.models import Post, Like, Favorite, Comment, Rating
 from Posts.serializers import PostSerializer, LikeSerializer, FavoriteSerializer, CommentSerializer, RatingSerializer
-from Recipes.models import Recipe, Ingredient
+from Recipes.models import Recipe
 
 
 class GetPostView(RetrieveAPIView):
@@ -22,6 +22,14 @@ class GetPostView(RetrieveAPIView):
     def get_object(self):
         print(f"pk: {self.kwargs['pk']}")
         return get_object_or_404(Post, id=self.kwargs['pk'])
+
+
+
+class GetPostAllView(ListAPIView):
+    serializer_class = PostSerializer
+    queryset = Post.objects.all()
+    # def get_queryset(self):
+    #     return Post.objects.all()
 
 
 class GetPostsView(ListAPIView, UpdateAPIView):

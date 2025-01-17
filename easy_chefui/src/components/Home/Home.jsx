@@ -4,16 +4,20 @@ import "slick-carousel/slick/slick-theme.css";
 import LoggedIn from '../Navbar/LoggedIn';
 import LoggedOut from '../Navbar/LoggedOut';
 import { Link } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import AuthContext from "../Auth/AuthContext";
+import useAxios from "../Auth/AuthAxios";
+import CardList from "../CardList/CardList";
 
 
 function Home() {
   const images = ['assets/fruits.jpg', 'assets/steak.jpg'];
-
+  const [recipes , setRecipes] = useState([])
   const { user, logoutUser, authRedirect, unauthRedirect } =
   useContext(AuthContext);
+  const api = useAxios();
 
+  
 
   const settings = {
     autoplay: true,
@@ -25,8 +29,28 @@ function Home() {
     slidesToScroll: 1
   };
 
+ 
+  const getRecipes = async () => {
+    const sort = "ratings"; // Use "filter" as default if params.sort is undefined
+    const response = await api
+      .get(
+        `http://127.0.0.1:8000/posts/all/`
+
+      )
+      return response.data.results
+  
+  }
+
+  useEffect(async ()=> {
+    const recipes = await getRecipes();
+
+    setRecipes(recipes);
+    console.log( "trash", recipes);
+
+  }, [])
 
   return (
+    <>
     <div className="w-full flex justify-center py-10">
       <div className="w-2/5 p-5">
         <h1 className="text-4xl font-bold text-gray-900">
@@ -54,6 +78,12 @@ function Home() {
         </Slider>
       </div>
     </div>
+    <div className="">
+
+       <CardList col_size={3} sort={"filter"} list={recipes} />
+
+    </div>
+    </>
   );
 }
 

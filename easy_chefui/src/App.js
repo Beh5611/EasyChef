@@ -101,12 +101,13 @@ function App() {
       errorElement: <ErrorPage message="user not logged in." />,
     },
     {
-      path: "/posts/search/:sort",
+      path: "/posts/search/:sort?",
       loader: async ({ request, params }) => {
         const url = new URL(request.url);
-        const querystring = url.searchParams ? url.searchParams : "filter";
+        const querystring = url.searchParams;
+        const sort = params.sort ?? "filter"; // Use "filter" as default if params.sort is undefined
         const response = await axios.get(
-          `http://127.0.0.1:8000/posts/search/${params.sort}/?${querystring}`
+          `http://127.0.0.1:8000/posts/search/${sort}/?${querystring}`
         );
         return response.data.results;
       },
@@ -141,10 +142,7 @@ function App() {
       path: "/create",
       element: <RecipeForm/>,
       loader: async () => {
-        const unauth = unauthRedirect();
-        if (unauth) {
-          return unauth;
-        }
+        return unauthRedirect();
       },
       errorElement: <ErrorPage message="user not logged in." />,
     }, 

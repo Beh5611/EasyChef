@@ -146,7 +146,7 @@ export const AuthProvider = ({ children }) => {
   const authRedirect = () => {
     if (user) {
       console.log(user);
-      return redirect("/profile");
+      return redirect("/");
     }
     return null;
   };

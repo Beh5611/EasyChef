@@ -37,35 +37,35 @@ class Diet(models.Model):
         return self.name
 
 
-class Ingredient(models.Model):
-    name = models.CharField(max_length=50)
-    amount = models.IntegerField()
+# class Ingredient(models.Model):
+#     name = models.CharField(max_length=50)
+#     amount = models.IntegerField()
 
-    TSP = 'Tablespoon'
-    TS = 'Teaspoon'
-    OZ = 'Ounces'
-    LB = 'Pounds'
-    ML = 'Milliliter'
-    MG = 'Milligram'
-    G = 'Gram'
-    C = 'Cup'
+#     TSP = 'Tablespoon'
+#     TS = 'Teaspoon'
+#     OZ = 'Ounces'
+#     LB = 'Pounds'
+#     ML = 'Milliliter'
+#     MG = 'Milligram'
+#     G = 'Gram'
+#     C = 'Cup'
 
-    CHOICES = (
-        (TSP, TSP),
-        (TS, TS),
-        (OZ, OZ),
-        (LB, LB),
-        (ML, ML),
-        (MG, MG),
-        (G, G),
-        (C, C),
-    )
+#     CHOICES = (
+#         (TSP, TSP),
+#         (TS, TS),
+#         (OZ, OZ),
+#         (LB, LB),
+#         (ML, ML),
+#         (MG, MG),
+#         (G, G),
+#         (C, C),
+#     )
 
-    amount_type = models.CharField(max_length=20, choices=CHOICES, default=G)
-    recipe_ID = models.ManyToManyField(to=Recipe, related_name='Ingredients')
+#     amount_type = models.CharField(max_length=20, choices=CHOICES, default=G)
+#     recipe_ID = models.ManyToManyField(to=Recipe, related_name='Ingredients')
 
-    def __str__(self):
-        return self.name
+#     def __str__(self):
+#         return self.name
 
 
 
