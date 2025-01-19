@@ -13,11 +13,8 @@ const Step = (props) => {
         e.preventDefault();
       
         let arr = props.lst;
-        arr.splice(props.index, 1);
-        console.log("before del", props.stepimglst);
-       
+        arr.splice(props.index, 1);       
         props.stepimglst.splice(props.index, 1);
-        console.log("after del", props.stepimglst);
         props.render();
        
     

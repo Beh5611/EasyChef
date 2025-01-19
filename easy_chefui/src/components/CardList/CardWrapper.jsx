@@ -38,6 +38,10 @@ function CardWrapper({ title }) {
   const handleSubmit = (e) => {
     setQueryList([...queryList, `${searchMode}:${searchval}`]);
   };
+  const handleRemoveQuery = (index) => {
+    setQueryList(queryList.filter((_, i) => i !== index)); // Removes the query at the specified index
+  };
+  
 
   useEffect(() => {
     let newParams = queryList.reduce((acc, querystring) => {
@@ -68,21 +72,21 @@ function CardWrapper({ title }) {
                     value=""
                     id="flexCheckDefault"
                     label="less then 10 mins"
-                    checked
+                    
                   />
                   <MDBCheckbox
                     name="flexCheck"
                     value=""
                     id="flexCheckDefault"
                     label="less than 30 mins"
-                    checked
+                    
                   />
                   <MDBCheckbox
                     name="flexCheck"
                     value=""
                     id="flexCheckDefault"
                     label="less than 60 mins"
-                    checked
+                    
                   />
                 </MDBCardText>
                 <MDBCardTitle>Diets</MDBCardTitle>
@@ -93,21 +97,21 @@ function CardWrapper({ title }) {
                     value=""
                     id="flexCheckDefault"
                     label="Halal"
-                    checked
+                    
                   />
                   <MDBCheckbox
                     name="flexCheck"
                     value=""
                     id="flexCheckDefault"
                     label="Vegan"
-                    checked
+                    
                   />
                   <MDBCheckbox
                     name="flexCheck"
                     value=""
                     id="flexCheckDefault"
                     label="Keto"
-                    checked
+                    
                   />
                 </MDBCardText>
                 <MDBCardTitle>Cuisines</MDBCardTitle>
@@ -118,21 +122,21 @@ function CardWrapper({ title }) {
                     value=""
                     id="flexCheckDefault"
                     label="Italian"
-                    checked
+                    
                   />
                   <MDBCheckbox
                     name="flexCheck"
                     value=""
                     id="flexCheckDefault"
                     label="Middle Eastern"
-                    checked
+                    
                   />
                   <MDBCheckbox
                     name="flexCheck"
                     value=""
                     id="flexCheckDefault"
                     label="Indian"
-                    checked
+                    
                   />
                 </MDBCardText>
                 <MDBCardTitle>Ratings</MDBCardTitle>
@@ -143,35 +147,35 @@ function CardWrapper({ title }) {
                     value=""
                     id="flexCheckDefault"
                     label="1"
-                    checked
+                    
                   />
                   <MDBCheckbox
                     name="flexCheck"
                     value=""
                     id="flexCheckDefault"
                     label="2"
-                    checked
+                    
                   />
                   <MDBCheckbox
                     name="flexCheck"
                     value=""
                     id="flexCheckDefault"
                     label="3"
-                    checked
+                    
                   />
                   <MDBCheckbox
                     name="flexCheck"
                     value=""
                     id="flexCheckDefault"
                     label="4"
-                    checked
+                    
                   />
                   <MDBCheckbox
                     name="flexCheck"
                     value=""
                     id="flexCheckDefault"
                     label="5"
-                    checked
+                    
                   />
                 </MDBCardText>
               </MDBCardBody>
@@ -272,22 +276,29 @@ function CardWrapper({ title }) {
               </MDBCol>
             </MDBRow>
             <MDBRow className="gy-2">
-              {queryList.length
-                ? queryList.map((query, index) => {
-                    return (
-                      <MDBBadge
-                        key={index}
-                        pill
-                        className="mx-2"
-                        light
-                        style={{ width: "auto" }}
-                      >
-                        {query}
-                      </MDBBadge>
-                    );
-                  })
-                : null}
-            </MDBRow>
+  {queryList.length
+    ? queryList.map((query, index) => {
+        return (
+          <MDBBadge
+            key={index}
+            pill
+            className="mx-2 flex items-center justify-between"
+            light
+            style={{ width: "auto" }}
+          >
+            {query}
+            <span
+              className="ml-2 cursor-pointer text-red-500"
+              onClick={() => handleRemoveQuery(index)}
+            >
+              &times; {/* This is the "×" symbol for the close icon */}
+            </span>
+          </MDBBadge>
+        );
+      })
+    : null}
+</MDBRow>
+
             <MDBRow center className="p-3">
               <CardList col_size={3} sort={sort} list={defaultcardlist} />
             </MDBRow>

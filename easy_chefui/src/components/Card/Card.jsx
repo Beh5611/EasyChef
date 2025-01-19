@@ -39,7 +39,7 @@ function RecipeCard({ id, name, description, recipe_id, owner, last_date }) {
   }, [id, owner, recipe_id, like, favorite]);
 
   const handleClickForMore =  ()=>{
-    navigate(`/posts/${recipe_id}`)
+    navigate(`/posts/${id}`)
   }
   return (
 <div className="max-w-sm bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 cursor-pointer h-full">

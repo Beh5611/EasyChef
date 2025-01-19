@@ -109,6 +109,7 @@ function App() {
         const response = await axios.get(
           `http://127.0.0.1:8000/posts/search/${sort}/?${querystring}`
         );
+        console.log(response.data.results)
         return response.data.results;
       },
       element: <CardWrapper title="Search" />,
