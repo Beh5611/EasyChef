@@ -176,7 +176,6 @@ function RecipeDetails() {
                                 {data.description}</p>
                             </MDBRow>
                             <MDBRow className="pt-3 mt-2">
-                                <label className="px-2 small">Details:</label>
                                 <Details recipe={recipe}></Details>
                             </MDBRow>
                         

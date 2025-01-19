@@ -21,10 +21,12 @@ const CardList = ({ list }) => {
   //     getPosts(sort);
   //   }
   // }, [sort]);
+  
+
 
   const cardArray = list.map((post, index) => {
     return (
-<div className="max-w-sm bg-white rounded-lg shadow-lg overflow-hidden hover:translate-y-[-0.75rem] transition-all duration-300">
+<div  className="max-w-sm bg-white rounded-lg shadow-lg overflow-hidden hover:translate-y-[-0.75rem] transition-all duration-300">
         <RecipeCard
           name={post.title}
           recipe_id={post.recipe}

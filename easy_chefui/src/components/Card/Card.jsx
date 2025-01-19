@@ -4,6 +4,7 @@ import Rating from "./Rating";
 import LikeBtn from "./Like";
 import FavoriteBtn from "./Favorite";
 import useAxios from "../Auth/AuthAxios";
+import { useNavigate } from "react-router-dom";
 
 
 function RecipeCard({ id, name, description, recipe_id, owner, last_date }) {
@@ -14,6 +15,7 @@ function RecipeCard({ id, name, description, recipe_id, owner, last_date }) {
   const [favorite, setFavorite] = useState(false);
   const [image, setImage] = useState();
   const api = useAxios();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,7 +38,9 @@ function RecipeCard({ id, name, description, recipe_id, owner, last_date }) {
     fetchData();
   }, [id, owner, recipe_id, like, favorite]);
 
-
+  const handleClickForMore =  ()=>{
+    navigate(`/posts/${recipe_id}`)
+  }
   return (
 <div className="max-w-sm bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 cursor-pointer h-full">
       {/* Image Section */}
@@ -55,8 +59,14 @@ function RecipeCard({ id, name, description, recipe_id, owner, last_date }) {
 
           <h3 className="text-md font-semibold text-gray-800 ">{name}</h3>  
         </div>
-        
+        <div className="flex justify-between">
         <p className="text-gray-500 text-sm">By <span className="font-medium">{username}</span></p>
+        <button onClick={handleClickForMore} className="px-2 bg-yellow-500 text-white text-sm  rounded-full shadow-md hover:bg-yellow-600">
+  Click for More
+</button>
+
+        </div>
+        
         <p className="text-gray-700 text-sm line-clamp-2">{description}</p>
         <Rating post_id={id} />
       </div>

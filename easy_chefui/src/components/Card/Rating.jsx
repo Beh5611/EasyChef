@@ -10,8 +10,6 @@ import axios from "axios";
 import { useAuth } from "../Auth/AuthContext";
 import useAxios from "../Auth/AuthAxios";
 
-// source: https://dev.to/michaelburrows/create-a-custom-react-star-rating-component-5o6
-
 function Rating({ post_id, avg }) {
   const [rating, setRating] = useState(0);
   const [rid, setRid] = useState(-1);
@@ -20,6 +18,7 @@ function Rating({ post_id, avg }) {
   const [hover, setHover] = useState(0);
 
   const api = useAxios();
+
   // Set rating
   const SetAPIRating = async (index) => {
     if (rid > 0) {
@@ -63,12 +62,12 @@ function Rating({ post_id, avg }) {
     }
   };
 
-  // get users rating from database
+  // Get user's rating from the database
   useEffect(() => {
     if (user) {
       getRatings();
     }
-  }, []);
+  }, [user, post_id]);
 
   return (
     <div className="star-rating">
@@ -81,10 +80,11 @@ function Rating({ post_id, avg }) {
                 <button
                   type="button"
                   key={index}
-                  className={
-                    "ps-0 transparent-btn " +
-                    (index <= (hover || rating) ? "on" : "off")
-                  }
+                  className={`ps-0 transparent-btn text-xl ${
+                    index <= (hover || rating)
+                      ? "text-yellow-500" // Active star color (yellow)
+                      : "text-gray-400" // Inactive star color (gray)
+                  }`}
                   onClick={() => {
                     SetAPIRating(index);
                   }}
@@ -99,8 +99,8 @@ function Rating({ post_id, avg }) {
               {" "}
               (
               {ratings.length &&
-                ratings?.reduce((partialSum, r) => partialSum + r.score, 0) /
-                  ratings?.length}
+                ratings.reduce((partialSum, r) => partialSum + r.score, 0) /
+                  ratings.length}
               )
             </p>
           </MDBCol>
