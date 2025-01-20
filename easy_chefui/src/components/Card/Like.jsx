@@ -24,7 +24,7 @@ function LikeBtn({ post_id, likeState: { like, setLike } }) {
     try{
       if (like) {
         const response = await api.delete(
-          `http://127.0.0.1:8000/posts/${post_id}/unlike/`
+          `${process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"}/posts/${post_id}/unlike/`
         );
         if (response.status === 204) {
           setLike(false);
@@ -32,7 +32,7 @@ function LikeBtn({ post_id, likeState: { like, setLike } }) {
       } 
       else {
         const response = await api.post(
-          `http://127.0.0.1:8000/posts/${post_id}/like/`
+          `${process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"}/posts/${post_id}/like/`
         );
         if (response.status === 201) {
           setLike(true);
@@ -53,7 +53,7 @@ function LikeBtn({ post_id, likeState: { like, setLike } }) {
   // get users like from database
   const getLike = async () => {
     const response = await api.get(
-      `http://127.0.0.1:8000/posts/${user.id}/likes/`
+      `${process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"}/posts/${user.id}/likes/`
     );
     if (response.status === 200) {
       response.data.results.map((like) => {

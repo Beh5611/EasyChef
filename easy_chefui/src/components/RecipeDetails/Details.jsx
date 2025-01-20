@@ -7,7 +7,7 @@ function Details({ recipe }) {
   const [diets, setDiets] = useState([]);
   const fetchDiets = async () => {
     try {
-      const response = await api.get(`http://127.0.0.1:8000/recipes/${recipe.id}/diets/`);
+      const response = await api.get(`${process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"}/recipes/${recipe.id}/diets/`);
       setDiets(response.data.results);
     } catch (error) {
       console.error("Error fetching diets:", error);

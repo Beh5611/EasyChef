@@ -23,7 +23,7 @@ function Rating({ post_id, avg }) {
   const SetAPIRating = async (index) => {
     if (rid > 0) {
       const response = await api.put(
-        `http://127.0.0.1:8000/posts/rating/${rid}/edit/`,
+        `${process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"}/posts/rating/${rid}/edit/`,
         { score: index, user: user.id, post: post_id }
       );
       if (response.status === 200) {
@@ -31,7 +31,7 @@ function Rating({ post_id, avg }) {
       }
     } else {
       const response = await api.post(
-        `http://127.0.0.1:8000/posts/${post_id}/rate/`,
+        `${process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"}/posts/${post_id}/rate/`,
         { score: index }
       );
       if (response.status === 201) {
@@ -44,7 +44,7 @@ function Rating({ post_id, avg }) {
   // Get rating
   const getRatings = async () => {
     const response = await axios.get(
-      `http://127.0.0.1:8000/posts/${post_id}/rating/view/`,
+      `${process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"}/posts/${post_id}/rating/view/`,
       { withCredentials: true }
     );
 
@@ -54,7 +54,7 @@ function Rating({ post_id, avg }) {
     }
 
     const res = await axios.get(
-      `http://127.0.0.1:8000/posts/${post_id}/rating/view/all/`,
+      `${process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"}/posts/${post_id}/rating/view/all/`,
       { withCredentials: true }
     );
     if (res.data.results) {

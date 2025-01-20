@@ -31,7 +31,7 @@ function Home() {
  
   const getRecipes = async () => {
     try {
-      const response = await fetch(`http://127.0.0.1:8000/posts/all/`);
+      const response = await fetch(`${process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com" || "https://anologia.pythonanywhere.com"}/posts/all/`);
       const data = await response.json();
       setRecipes(data.results); 
     } catch (error) {

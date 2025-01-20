@@ -79,6 +79,7 @@ SIMPLE_JWT = {
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3030',
+    # 'https://anologia.pythonanywhere.com/',
     'http://127.0.0.1:8000',
     'http://localhost:3000',
 ]

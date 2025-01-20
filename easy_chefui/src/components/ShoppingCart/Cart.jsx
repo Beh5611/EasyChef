@@ -21,7 +21,7 @@ function Cart({ recipeID, onLoad, update }) {
   useEffect(() => {
     const getRecipe = async () => {
       const response = await api.get(
-        `http://127.0.0.1:8000/recipes/${recipeID}/`
+        `${process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"}/recipes/${recipeID}/`
       );
       console.log("getRecipe", response.data);
       setRecipe(response.data);
@@ -30,7 +30,7 @@ function Cart({ recipeID, onLoad, update }) {
 
     const getIngredients = async () => {
       const response = await api.get(
-        `http://127.0.0.1:8000/recipes/${recipeID}/ingredients/`
+        `${process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"}/recipes/${recipeID}/ingredients/`
       );
       setIngredients(response.data.results);
     };
@@ -39,7 +39,7 @@ function Cart({ recipeID, onLoad, update }) {
   const deleteRecipe = async () => {
     await api
       .get(
-        `http://127.0.0.1:8000/ShoppingCart/${recipeID}/remove/`,
+        `${process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"}/ShoppingCart/${recipeID}/remove/`,
 
         { withCredentials: true }
       )

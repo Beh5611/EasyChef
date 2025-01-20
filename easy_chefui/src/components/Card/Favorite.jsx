@@ -20,14 +20,14 @@ function FavoriteBtn({ post_id, favState: { favorite, setFavorite } }) {
   const updateFavorite = async () => {
     if (favorite) {
       const response = await api.delete(
-        `http://127.0.0.1:8000/posts/${post_id}/unfavorite/`
+        `${process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"}/posts/${post_id}/unfavorite/`
       );
       if (response.status === 204) {
         setFavorite(false);
       }
     } else {
       const response = await api.post(
-        `http://127.0.0.1:8000/posts/${post_id}/favorite/`
+        `${process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"}/posts/${post_id}/favorite/`
       );
       if (response.status === 201) {
         setFavorite(true);
@@ -38,7 +38,7 @@ function FavoriteBtn({ post_id, favState: { favorite, setFavorite } }) {
   // get users like from database
   const getFavorite = async () => {
     const response = await api.get(
-      `http://127.0.0.1:8000/posts/${user.id}/favorites/`
+      `${process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"}/posts/${user.id}/favorites/`
     );
     if (response.status === 200) {
       response.data.results.map((fav) => {

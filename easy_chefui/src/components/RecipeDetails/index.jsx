@@ -32,7 +32,7 @@ function RecipeDetails() {
     
     const updateLikes = async () => {
         const response = await api.get(
-          `http://127.0.0.1:8000/posts/${data.id}/like/all/`
+          `${process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"}/posts/${data.id}/like/all/`
         );
         if (response.status === 200) {
           setLikes(response.data.count);
@@ -41,7 +41,7 @@ function RecipeDetails() {
     
       const updateFavorites = async () => {
         const response = await api.get(
-          `http://127.0.0.1:8000/posts/${data.id}/favorites/all/`
+          `${process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"}/posts/${data.id}/favorites/all/`
         );
         console.log("favorites", response.data)
         if (response.status === 200) {
@@ -50,11 +50,11 @@ function RecipeDetails() {
       };
 
     const fetchRecipe = () => {
-        api.get(`http://127.0.0.1:8000/recipes/${data.recipe}/`)
+        api.get(`${process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"}/recipes/${data.recipe}/`)
         .then((response) => {
             setRecipe(response.data);
 
-            return api.get(`http://127.0.0.1:8000/accounts/${response.data.owner}/user/`);
+            return api.get(`${process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"}/accounts/${response.data.owner}/user/`);
         })
         .then((res) => {
             setOwner(res.data);
@@ -67,7 +67,7 @@ function RecipeDetails() {
     }          
         
     const fetchSocials = () => {
-        api.get(`http://127.0.0.1:8000/posts/${user.id}/likes/`)
+        api.get(`${process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"}/posts/${user.id}/likes/`)
         .then((response) => {
             let arr = response.data.results;
             
@@ -77,7 +77,7 @@ function RecipeDetails() {
                 }
             })
               
-            return api.get(`http://127.0.0.1:8000/posts/${data.id}/favorites/all/`)
+            return api.get(`${process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"}/posts/${data.id}/favorites/all/`)
         })
         .then((r) => {
             let arr = r.data.results;
@@ -86,7 +86,7 @@ function RecipeDetails() {
                     setFavorited(true);
                 }
             })
-            return api.get(`http://127.0.0.1:8000/ShoppingCart/get-cart/`)
+            return api.get(`${process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"}/ShoppingCart/get-cart/`)
         })
         .then((r2) => {
             if(Array.isArray(r2.data.recipes)){
@@ -117,12 +117,12 @@ function RecipeDetails() {
 
     const handleLikes = (bln) => {
         if(bln){
-            api.delete(`http://127.0.0.1:8000/posts/${data.id}/unlike/`)
+            api.delete(`${process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"}/posts/${data.id}/unlike/`)
             .then((response) => {
                 setLikes(likes - 1);
             })
         } else{
-            api.post(`http://127.0.0.1:8000/posts/${data.id}/like/`)
+            api.post(`${process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"}/posts/${data.id}/like/`)
             .then((response) => {
                 setLikes(likes + 1);
             })
@@ -132,12 +132,12 @@ function RecipeDetails() {
     }
     const handleFavorites = (bln) => {
         if(bln){ 
-            api.delete(`http://127.0.0.1:8000/posts/${data.id}/unfavorite/`)
+            api.delete(`${process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"}/posts/${data.id}/unfavorite/`)
             .then((response) => {
                 setFavorites(favorites - 1);
             })
         } else{
-            api.post(`http://127.0.0.1:8000/posts/${data.id}/favorite/`)
+            api.post(`${process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"}/posts/${data.id}/favorite/`)
             .then((response) => {
                 setFavorites(favorites + 1);
             })
@@ -148,11 +148,11 @@ function RecipeDetails() {
     }
     const handleCart = (bln) => {
         if(bln){
-            api.get(`http://127.0.0.1:8000/ShoppingCart/${recipe.id}/remove/`)
+            api.get(`${process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"}/ShoppingCart/${recipe.id}/remove/`)
             .then((response) => {
             })
         } else{
-            api.get(`http://127.0.0.1:8000/ShoppingCart/${recipe.id}/add/`)
+            api.get(`${process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"}/ShoppingCart/${recipe.id}/add/`)
             .then((response) => {
             })
         }

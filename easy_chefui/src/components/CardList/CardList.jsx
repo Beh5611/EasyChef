@@ -10,7 +10,7 @@ const CardList = ({ list }) => {
 
   // const getPosts = async (sort) => {
   //   const response = await axios.get(
-  //     `http://127.0.0.1:8000/posts/${sort}/all/`
+  //     `process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"/posts/${sort}/all/`
   //   );
   //   setDisplayResults(response.data.results);
   // };

@@ -20,16 +20,16 @@ function RecipeCard({ id, name, description, recipe_id, owner, last_date }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const userRes = await api.get(`http://127.0.0.1:8000/accounts/${owner}/user/`);
+        const userRes = await api.get(`${process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"}/accounts/${owner}/user/`);
         setUsername(userRes.data.username);
 
-        const imageRes = await api.get(`http://127.0.0.1:8000/recipes/${recipe_id}/`);
+        const imageRes = await api.get(`${process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"}/recipes/${recipe_id}/`);
         setImage(imageRes.data.image);
 
-        const likesRes = await api.get(`http://127.0.0.1:8000/posts/${id}/like/all/`);
+        const likesRes = await api.get(`${process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"}/posts/${id}/like/all/`);
         setLikes(likesRes.data.count);
 
-        const favRes = await api.get(`http://127.0.0.1:8000/posts/${id}/favorites/all/`);
+        const favRes = await api.get(`${process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"}/posts/${id}/favorites/all/`);
         setFavorites(favRes.data.count);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -62,8 +62,8 @@ function RecipeCard({ id, name, description, recipe_id, owner, last_date }) {
         <div className="flex justify-between">
         <p className="text-gray-500 text-sm">By <span className="font-medium">{username}</span></p>
         <button onClick={handleClickForMore} className="px-2 bg-yellow-500 text-white text-sm  rounded-full shadow-md hover:bg-yellow-600">
-  Click for More
-</button>
+          Click for More
+        </button>
 
         </div>
         

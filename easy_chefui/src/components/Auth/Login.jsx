@@ -18,7 +18,6 @@ function Login() {
 
   const onSubmit = (data) => {
     setError(null);
-    console.log(data);
     loginUser(
       data,
       (r) => {

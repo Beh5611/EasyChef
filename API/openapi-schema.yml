@@ -4,7 +4,7 @@ info:
   version: ''
 servers: [
     {
-      url: 'http://127.0.0.1:8000',
+      url: 'process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"',
       description: 'default django server for API'
     }
   ]

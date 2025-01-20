@@ -7,7 +7,7 @@ function CartList({update, onLoad}) {
     const [recipe, setRecipes] = useState([]);
     useEffect(() => {
         const getRecipes = async () => {
-            await axios.get("http://127.0.0.1:8000/ShoppingCart/get-cart/", { withCredentials: true })
+            await axios.get(`${process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"}/ShoppingCart/get-cart/`, { withCredentials: true })
             .then((response) => {
                 setRecipes(response.data.recipes)
             })

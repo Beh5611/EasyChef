@@ -4,7 +4,7 @@ import { useContext } from "react";
 import AuthContext from "./AuthContext";
 import { useNavigate } from "react-router-dom";
 
-const baseURL = "http://127.0.0.1:8000/";
+const baseURL = process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com";
 
 const useAxios = () => {
   const navigate = useNavigate();

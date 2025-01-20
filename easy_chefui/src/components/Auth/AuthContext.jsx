@@ -28,7 +28,7 @@ export const AuthProvider = ({ children }) => {
 
   const fetchUserSession = async () => {
     await axios
-      .get("http://127.0.0.1:8000/accounts/session/", { withCredentials: true })
+      .get(`${process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"}/accounts/session/`, { withCredentials: true })
       .then(async function (response) {
         console.log("session", response);
         await setUser(response.data.user);
@@ -46,7 +46,7 @@ export const AuthProvider = ({ children }) => {
   const loginUser = async ({ username, password, remember_me }) => {
     const response = await axios
       .post(
-        "http://127.0.0.1:8000/accounts/login/",
+        `${process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"}/accounts/login/`,
         {
           username,
           password,
@@ -71,7 +71,7 @@ export const AuthProvider = ({ children }) => {
 
   const registerUser = async (data) => {
     const response = await axios
-      .post("http://127.0.0.1:8000/accounts/signup/", data, {
+      .post(`${process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"}/accounts/signup/`, data, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -104,7 +104,7 @@ export const AuthProvider = ({ children }) => {
 
   const updateUser = async (data) => {
     const response = await axios
-      .put(`http://127.0.0.1:8000/accounts/update/`, data, {
+      .put(`${process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"}/accounts/update/`, data, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -124,7 +124,7 @@ export const AuthProvider = ({ children }) => {
 
   const logoutUser = async () => {
     const response = await axios.post(
-      "http://127.0.0.1:8000/accounts/logout/",
+      `${process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"}/accounts/logout/`,
       null,
       { withCredentials: true }
     );

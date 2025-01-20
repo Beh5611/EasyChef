@@ -80,7 +80,7 @@ const EditRecipe= () => {
       const getData = async () => {
      
           await api.post(
-              `http://127.0.0.1:8000/recipes/auto-complete/`, 
+              `${process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"}/recipes/auto-complete/`, 
               {
                 ingredient: ingval,
 
@@ -151,7 +151,7 @@ console.log("post data", data);
 //    setDescription(data["description"]);
 //    setRName(data["title"]);
     await api.get(
-        `http://127.0.0.1:8000/recipes/${data["recipe"]}`
+        `${process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"}/recipes/${data["recipe"]}`
     ).then(async response => {
       const recipe_id = response.data["id"];
       const recipe_name = response.data["name"];
@@ -195,7 +195,7 @@ console.log("post data", data);
     //   get_diet_lst.forEach(async (item) => {
       
     //     const response =   await api.post(
-    //       `http://127.0.0.1:8000/recipes/${item}/add-diet/`, 
+    //       `${process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"}/recipes/${item}/add-diet/`, 
     //       {
         
     //         recipe_ID: recipe_id
@@ -204,7 +204,7 @@ console.log("post data", data);
     //     .catch(async (error) => {
     //       console.error(error);
     //       const response2 =   await api.post(
-    //         `http://127.0.0.1:8000/recipes/create-diet/`, 
+    //         `${process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"}/recipes/create-diet/`, 
     //         {
     //           name: item,
     //           recipe_ID: [recipe_id] 
@@ -225,7 +225,7 @@ console.log("post data", data);
     //   inglst.forEach(async (item, index) => {
 
     //     await api.post(
-    //       `http://127.0.0.1:8000/recipes/${recipe_id}/add-ingredient/`, 
+    //       `${process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"}/recipes/${recipe_id}/add-ingredient/`, 
     //       {
     //         name: item, 
     //         amount: parseInt(quantitylst[index]),
@@ -241,7 +241,7 @@ console.log("post data", data);
 
 
     //  await api.post(
-    //     `http://127.0.0.1:8000/posts/create/`, 
+    //     `${process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"}/posts/create/`, 
     //     {
     //       title: rname, 
     //       recipe: recipe_id, 

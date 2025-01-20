@@ -9,14 +9,14 @@ function SocialInfo({post_id, likes, favorites, setReRender}) {
 
     // const updateSocials = async () => {
     //     const response = await api.get(
-    //         `http://127.0.0.1:8000/posts/${post_id}/like/all/`
+    //         `process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"/posts/${post_id}/like/all/`
     //     );
     //     if (response.status === 200) {
     //     setLikes(response.data.count);
     //     }
 
     //     const res = await api.get(
-    //         `http://127.0.0.1:8000/posts/${post_id}/favorites/all/`
+    //         `process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"/posts/${post_id}/favorites/all/`
     //       );
     //     if (res.status === 200) {
     //     setFavorites(res.data.count);

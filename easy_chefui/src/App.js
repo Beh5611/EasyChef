@@ -85,7 +85,7 @@ function App() {
           return unauth;
         }
         const response = await axios.get(
-          `http://127.0.0.1:8000/accounts/${user.id}/user/`,
+          `${process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"}/accounts/${user.id}/user/`,
           { withCredentials: true }
         );
         return response.data;
@@ -107,7 +107,7 @@ function App() {
         const querystring = url.searchParams;
         const sort = params.sort ?? "filter"; // Use "filter" as default if params.sort is undefined
         const response = await axios.get(
-          `http://127.0.0.1:8000/posts/search/${sort}/?${querystring}`
+          `${process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"}/posts/search/${sort}/?${querystring}`
         );
         console.log(response.data.results)
         return response.data.results;
@@ -121,7 +121,7 @@ function App() {
         const url = new URL(request.url);
         const querystring = url.searchParams;
         const response = await axios.get(
-          `http://127.0.0.1:8000/posts/search/${params.sort}/?owner=${user.username}`
+          `${process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"}/posts/search/${params.sort}/?owner=${user.username}`
         );
         return response.data.results;
       },
@@ -132,7 +132,7 @@ function App() {
       path: "/posts/:postid",
       loader: async ({ params }) => {
         const response = await axios.get(
-          `http://127.0.0.1:8000/posts/${params.postid}/`
+          `${process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"}/posts/${params.postid}/`
         );
         return response.data;
       },
@@ -156,7 +156,7 @@ function App() {
           return unauth;
         }
         const response = await axios.get(
-          `http://127.0.0.1:8000/posts/${params.postid}/`,
+          `${process.env.REACT_APP_PRODUCTION_BACKEND_URL || "https://anologia.pythonanywhere.com"}/posts/${params.postid}/`,
           { withCredentials: true }
         );
         return response.data;
